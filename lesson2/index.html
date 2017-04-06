@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    console.log('п.1');
+    // п.1
+    var a = 1, b = 1, c, d;
+    c = ++a;
+    console.log(c);           // 2
+    d = b++;
+    console.log(d);          // 1
+    c = (2 + ++a);
+    console.log(c);  // 5
+    d = (2 + b++);
+    console.log(d); // 4
+    console.log(a);                        // 3
+    console.log(b);                        // 3
+
+    console.log('п.2');
+    // п.2
+    a = 2;
+    var x = 1 + (a *= 2);
+    console.log(x);
+
+    console.log('п.3');
+    // п.3
+
+    a = -10;
+    b = 12;
+
+    if (a >= 0 && b >= 0) {
+        console.log(a - b);
+    } else if (a < 0 && b < 0) {
+        console.log(a * b);
+    } else {
+        console.log(a + b);
+    }
+    console.log('п.4');
+    // п.4
+
+    a = 9;
+    switch (a) {
+
+        case 1:
+            console.log(1);
+        case 2:
+            console.log(2);
+        case 3:
+            console.log(3);
+        case 4:
+            console.log(4);
+        case 5:
+            console.log(5);
+        case 6:
+            console.log(6);
+        case 7:
+            console.log(7);
+        case 8:
+            console.log(8);
+        case 9:
+            console.log(9);
+        case 10:
+            console.log(10);
+        case 11:
+            console.log(11);
+        case 12:
+            console.log(12);
+        case 13:
+            console.log(13);
+        case 14:
+            console.log(14);
+        case 15:
+            console.log(15);
+            break;
+        default:
+            console.log('nope');
+
+    }
+    console.log('п.5');
+    // п.5
+
+
+    function summ(a, b) {
+        return (a + b);
+    }
+    function sub(a, b) {
+        return (a - b);
+    }
+    function div(a, b) {
+        return (a / b);
+    }
+    function mult(a, b) {
+        return (a * b);
+    }
+    a = 6;
+    b = 2;
+    console.log(summ(a, b), sub(a, b), div(a, b), mult(a, b));
+
+    console.log('п.6');
+    // п.6
+    a = 2;
+    b = 3;
+
+    function mathOperation(a, b, operation) {
+        switch (operation) {
+            case '*':
+                return (a * b);
+            case '/':
+                return (a / b);
+            case '+':
+                return (a + b);
+            case '-':
+                return (a - b);
+            default:
+                return ('nope');
+
+        }
+
+    }
+    console.log(mathOperation(a, b, '+'))
+
+
+    console.log('п.7');
+    // п.7
+
+    console.log(null == 0);
+    console.log(null === 0);
+
+    console.log('п.7');
+    // п.8
+
+    a = 8;
+    function fac(a) {
+        if (a<1){
+            return 'nope';
+
+        }
+/*
+
+        if (a > 1) {
+            a = a-- * fac(a);
+        }
+*/
+
+        return (a>1) ? a--*fac(a) : 1;
+    }
+    console.log(fac(a));
+
+</script>
+
+
+</body>
+</html>
