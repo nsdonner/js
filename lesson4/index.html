@@ -13,31 +13,23 @@
          */
 
 
-        var n, i, obj1 = {
+        var obj1 = {
             a0: 'единицы ',
             a1: 'десятки ',
             a2: 'сотни ',
-
-
             transform: function (n) {
-                if (n >= 0 && n <= 999) {
-                    n = ''+n;
-                    for (i = 0; i < n.length; i++) {
-                        this['a'+i] += n[n.length-1-i];
-                                           }
+                    if (n >= 0 && 999 >= n) {    // проверка условия
+                    n = '' + n;               // конверт инт в строку
+                    for (var i = 0; i < n.length; i++) {
+                        this['a' + i] += n[n.length - 1 - i]; // первому свойству последний элемент строки +-
+                    }
                     console.log(obj1);
                 } else {
-                    console.log('ERROR',obj1);
+                    console.log('ERROR', obj1);
                 }
             }
         }
-
-        n = 258;
-        obj1.transform(n);
-
-
-
-
+        obj1.transform(258);
 
 
 

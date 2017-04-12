@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>leson4</title>
+    <script src="text.js"></script>
+
+
+    <script>
+
+        function quest(i) {
+            var questions='';
+
+            for (var q in works2[i].answer){
+                questions=questions+(parseInt(q)+1)+'.  '+(works2[i].answer[q].value);
+            }
+
+            return questions;
+        }
+
+
+
+
+
+
+
+
+
+        for (var i=0;i<15;i++){
+            do {
+                var a = prompt('Ход номер ' + (i + 1) + '\n' + 'Возможный выйгрышь ' + works2[i].price + '\n' + 'Для того чтобы закончить игру и забрать выйгрышь - введите "0" ' +'\n\n' + works2[i].question + '\n' + quest(i));
+                ok=isAnswer(a);
+            } while (!ok);
+            if ((a==0) && i>1) {
+                alert('Вы закончили игру и забрали ' + works2[i - 1].price);
+                break;
+            } else if ((a==0) && i==1){
+                alert('Вы закончили игру');
+                break;
+            }
+            if (!works2[i].answer[a-1].isTrue){
+                alert('Вы дали не правильный ответ, игра закончена.');
+                break;
+            } else {
+
+            }
+
+        }
+
+        if (i==15) alert('Поздраволяем с победой!')
+
+        function isAnswer(e) {
+            if (isNaN(e) || !isFinite(e)) {
+                alert('Введен недопустимый символ!');
+                return false;
+            }
+
+            if (e < 0 || e > 4) {
+                alert('Введен ответ за допустимым диапазоном!');
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
