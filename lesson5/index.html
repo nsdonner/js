@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lesson5</title>
+
+
+    <style>
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: auto;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ch-wrap {
+            width: 400px;
+            height: 400px;
+            /*border: 1px solid #111;*/
+            outline: 1px solid #111;
+            text-align: center;
+            font-size: 34px;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -200px 0 0 -200px;
+
+        }
+
+        .border {
+            width: 500px;
+            height: 500px;
+            outline: 1px solid #111;
+            text-align: center;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -250px 0 0 -250px;
+        }
+
+        .ch-item {
+            width: 50px;
+            height: 50px;
+            float: left;
+        }
+
+        .ch-black {
+            background: #9b9b9b;
+        }
+
+        .up {
+            width: 50px;
+            height: 50px;
+            float: left;
+            font-size: 25px;
+            line-height: 50px;
+            text-transform: uppercase;
+
+        }
+
+        .left {
+            width: 50px;
+            height: 50px;
+            clear: left;
+            font-size: 25px;
+            line-height: 50px;
+            /*border: 1px solid #111;*/
+
+        }
+
+        .right {
+            width: 50px;
+            height: 50px;
+            clear: both;
+            float: right;
+            font-size: 25px;
+            line-height: 50px;
+            /*border: 1px solid #111;*/
+
+        }
+
+        .bdrop {
+            width: 400px;
+            height: 100px;
+            outline: 2px solid #111;
+            text-align: center;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -400px 0 0 -200px;
+        }
+
+        .bdrop > div {
+            width: 50px;
+            height: 50px;
+            float: left;
+            font-size: 34px;
+            line-height: 50px;
+            outline: 1px solid #111;
+        }
+
+        .wdrop {
+            width: 400px;
+            height: 100px;
+            outline: 2px solid #111;
+            text-align: center;
+            font-size: 34px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: 300px 0 0 -200px;
+        }
+
+        .wdrop > div {
+            width: 50px;
+            height: 50px;
+            float: left;
+            font-size: 34px;
+            line-height: 50px;
+            outline: 1px solid #111;
+        }
+        .area {
+            width: 200px;
+            height: 80px;
+            outline: 1px solid #111;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -500px 0 0 -100px;
+        }
+
+    </style>
+
+
+</head>
+<body>
+<!--<div class="area">
+заготовка под выбор хода
+</div>-->
+
+<div class="bdrop">
+
+
+</div>
+<div class="border">
+    <div class="ch-wrap"></div>
+</div>
+
+<div class="wdrop">
+
+    <script>
+
+        var WPAWN = '&#9817;', // белая пешка
+            BPAWN = '&#9823;', // черная пешка
+            WROOK = '&#9814;', // белая ладья
+            BROOK = '&#9820;',// черная ладья
+            WKNIGHT = '&#9816;',// белый конь
+            BKNIGHT = '&#9822;',// черный конь
+            WBISHOP = '&#9815;',// белый слон
+            BBISHOP = '&#9821;',// черный слон
+            WQUEEN = '&#9813;',// белый ферзь
+            BQUEEN = '&#9819;',// черный ферзь
+            WKING = '&#9812;',// белый король
+            BKING = '&#9818;',// черный король
+            // можно заменить картинками, но так имхо лучше и легче
+            whitePawns = [],
+            blackPawns = [],
+            whiteRooks = [],
+            blackRooks = [],
+            whiteKnights = [],
+            blackKnights = [],
+            whiteBishops = [],
+            blackBishops = [],
+            whiteQueens = [],
+            blackQueens = [],
+            whiteKings = [],
+            blackKings = [],
+            alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+        // инициализируем массивы объектов с разными фигурами
+        var idrop = 1, ndrop = 1;
+
+        init();
+        // играем
+        move('e2','e4');
+        move('d7','d5');
+        move('b1','c3');
+        move('d5','e4');
+
+
+
+
+
+        function init() {
+            drawboard(); // рисуем доску
+            initPawns(); // рисуем пешки
+            initRooks(); // рисуем ладьи
+            initKnights(); // рисуем коней
+            initBishops(); // рисуем слонов
+            initQueens(); // рисуем ферзей
+            initKings(); // рисуем королей
+
+
+        }
+        function move(a, b) {
+
+            if (search(b) !== 'empty') {
+                if (search(b).color == 'black') {
+                    search(b).set('x' + idrop);
+                    idrop++;
+                }
+                if (search(b).color == 'white') {
+                    search(b).set('y' + ndrop);
+                    ndrop++;
+                }
+            }
+            search(a).set(b);
+
+        }
+        function search(loc) {
+            for (i in blackPawns) if (blackPawns[i].place === loc) return (blackPawns[i]);
+            for (i in whitePawns) if (whitePawns[i].place === loc) return (whitePawns[i]);
+            for (i in blackRooks) if (blackRooks[i].place === loc) return (blackRooks[i]);
+            for (i in whiteRooks) if (whiteRooks[i].place === loc) return (whiteRooks[i]);
+            for (i in blackKnights) if (blackKnights[i].place === loc) return (blackKnights[i]);
+            for (i in whiteKnights) if (whiteKnights[i].place === loc) return (whiteKnights[i]);
+            for (i in blackBishops) if (blackBishops[i].place === loc) return (blackBishops[i]);
+            for (i in whiteBishops) if (whiteBishops[i].place === loc) return (whiteBishops[i]);
+            for (i in blackQueens) if (blackQueens[i].place === loc) return (blackQueens[i]);
+            for (i in whiteQueens) if (whiteQueens[i].place === loc) return (whiteQueens[i]);
+            for (i in blackKings) if (blackKings[i].place === loc) return (blackKings[i]);
+            for (i in whiteKings) if (whiteKings[i].place === loc) return (whiteKings[i]);
+            return ('empty');
+        }
+        function drawboard() {
+            // запилил под себя, но честно стырил рисовку доски из https://ru.stackoverflow.com/questions/597561/%D0%9A%D0%B0%D0%BA-%D0%BD%D0%B0%D1%80%D0%B8%D1%81%D0%BE%D0%B2%D0%B0%D1%82%D1%8C-%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%83%D1%8E-%D1%88%D0%B0%D1%85%D0%BC%D0%B0%D1%82%D0%BD%D1%83%D1%8E-%D0%B4%D0%BE%D1%81%D0%BA%D1%83
+            // больно формула понравилась, как до такого люди додумываются?
+            var i = 0, count = 0, n = 2, item, chessWrap;
+            var alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+            chessWrap = document.querySelector('.bdrop');
+            for (i = 1; i < 17; i++) {
+                item = document.createElement('div');
+                chessWrap.appendChild(item);
+                item.classList.add('x' + i);
+            }
+
+            chessWrap = document.querySelector('.wdrop');
+            for (i = 1; i < 17; i++) {
+                item = document.createElement('div');
+                chessWrap.appendChild(item);
+                item.classList.add('y' + i);
+            }
+
+
+            chessWrap = document.querySelector('.border');
+            for (i = 1; i < 35; i++) {
+                item = document.createElement('div');
+                chessWrap.appendChild(item);
+                if (i == 1) item.classList.add('up');
+                if (i == 26) item.classList.add('up');
+                if (i > 1 && i < 10) {
+                    item.classList.add('up');
+                    item.innerHTML = alpha[i - 2];
+                } else if (i > 9 && i < 18) {
+                    item.classList.add('right');
+                    item.innerHTML = i - n;
+                    n = n + 2;
+
+                } else if (i > 17 && i < 26) {
+                    item.classList.add('left');
+                    item.innerHTML = i - (n - 8);
+                    n = n + 2;
+
+                } else if (i > 26 && i < 36) {
+                    item.classList.add('up');
+                    item.innerHTML = alpha[i - 27];
+                }
+            }
+            chessWrap = document.querySelector('.ch-wrap');
+            i = 0;
+            while (count < 8 * 8) {
+                item = document.createElement('div');
+                chessWrap.appendChild(item);
+                for (var ii = 0, bb = 8; ii < 8; ii++, bb--) {
+                    if (count < (8 + 8 * ii)) item.classList.add(alpha[(count - ii * 8)] + bb);
+                } // метим дивы как доску
+                item.classList.add('ch-item');
+                if (i && i % 2) item.classList.add('ch-black');
+                i += ((i + 2) % 9) ? 1 : 2; // Гениально
+                count++;
+            }
+        } //нарисовали доску
+        function Chess(place, type, color) {
+            this.place = place;
+            this.oldPlace = '';
+            this.type = type;
+            this.color = color;
+            this.set = function (pplace) {
+                if (pplace === undefined) pplace = this.place;
+                this.place = pplace;
+                if (this.oldPlace !== '') document.getElementsByClassName(this.oldPlace)[0].innerHTML = ' ';
+                this.oldPlace = this.place;
+                document.getElementsByClassName(pplace)[0].innerHTML = this.type; // на поиск решения с [0] для выбора по классу, а не ID я убил 2 часа.
+            }
+        }     // конструктор фигур
+        function initPawns() {
+            var alpha = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+            for (var i = 1; i <= 8; i++) {
+                whitePawns[i] = new Chess(alpha[i - 1] + '2', WPAWN, 'white');
+                whitePawns[i].set(alpha[i - 1] + '2');
+            }
+            for (i = 1; i <= 8; i++) {
+                blackPawns[i] = new Chess(alpha[i - 1] + '7', BPAWN, 'black');
+                blackPawns[i].set(alpha[i - 1] + '7');
+            }
+        }
+        function initRooks() {
+            whiteRooks[0] = new Chess('a1', WROOK, 'white');
+            whiteRooks[0].set();
+            whiteRooks[1] = new Chess('h1', WROOK, 'white');
+            whiteRooks[1].set();
+            // белые
+            // черные
+            blackRooks[0] = new Chess('a8', BROOK, 'black');
+            blackRooks[0].set();
+            blackRooks[1] = new Chess('h8', BROOK, 'black');
+            blackRooks[1].set();
+
+        }
+        function initKnights() {
+            whiteKnights[0] = new Chess('b1', WKNIGHT, 'white');
+            whiteKnights[0].set();
+            whiteKnights[1] = new Chess('g1', WKNIGHT, 'white');
+            whiteKnights[1].set();
+            // белые
+            // черные
+            blackKnights[0] = new Chess('b8', BKNIGHT, 'black');
+            blackKnights[0].set();
+            blackKnights[1] = new Chess('g8', BKNIGHT, 'black');
+            blackKnights[1].set();
+
+        }
+        function initBishops() {
+            whiteBishops[0] = new Chess('c1', WBISHOP, 'white');
+            whiteBishops[0].set();
+            whiteBishops[1] = new Chess('f1', WBISHOP, 'white');
+            whiteBishops[1].set();
+            // белые
+            // черные
+            blackBishops[0] = new Chess('c8', BBISHOP, 'black');
+            blackBishops[0].set();
+            blackBishops[1] = new Chess('f8', BBISHOP, 'black');
+            blackBishops[1].set();
+
+        }
+        function initQueens() {
+            whiteQueens[0] = new Chess('d1', WQUEEN, 'white');
+            whiteQueens[0].set();
+            // белые
+            // черные
+            blackQueens[0] = new Chess('d8', BQUEEN, 'black');
+            blackQueens[0].set();
+
+        }
+        function initKings() {
+            whiteKings[0] = new Chess('e1', WKING, 'white');
+            whiteKings[0].set();
+            // белые
+            // черные
+            blackKings[0] = new Chess('e8', BKING, 'black');
+            blackKings[0].set();
+
+        }
+
+
+    </script>
+
+</body>
+</html>
