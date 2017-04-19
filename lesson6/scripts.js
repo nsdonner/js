@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+
 var basket = [];
 var good = [];
 var summ = 0;
@@ -67,8 +68,34 @@ function priceClear(price) {
 
 }
 
+var arrowUp = false;
 
 function buy(event) {
+
+    document.getElementsByClassName('basket')[0].style.display = 'block';
+
+
+
+
+
+
+    document.getElementsByClassName('arrow')[0].onclick = function(event){
+
+        if (!arrowUp) {
+            document.getElementsByClassName('basketgoods')[0].style.display = 'block';
+            document.getElementsByClassName('arrow')[0].innerHTML = '<i class="fa fa-sort-asc" aria-hidden="true"></i>';
+            document.getElementsByClassName('arrow')[0].style.paddingTop = '10px';
+            arrowUp = true;
+        } else {
+            document.getElementsByClassName('basketgoods')[0].style.display = 'none';
+            document.getElementsByClassName('arrow')[0].innerHTML = '<i class="fa fa-sort-desc" aria-hidden="true"></i>';
+            document.getElementsByClassName('arrow')[0].style.paddingTop = '0';
+            arrowUp = false;
+        }
+
+
+
+    };
 
     var a = this.event.srcElement.parentNode.getElementsByClassName('good')[0].innerHTML,
         b = priceClear(this.event.srcElement.parentNode.getElementsByClassName('price')[0].innerHTML);
@@ -97,14 +124,25 @@ function buy(event) {
     console.log(basket);
 
     fsumm();
-   }
+
+
+    a = document.getElementsByClassName('basketgoods')[0];
+    a.innerHTML = '';
+    for (i = 0; i < basket.length; i++) {
+        var sp = document.createElement('li');
+        sp.innerHTML = basket[i][0] + '&nbsp; &nbsp;'+basket[i][2]+' шт. &nbsp; &nbsp;' + '<div class="bprice">'+(basket[i][1] * basket[i][2] + ' руб.</div>');
+        a.appendChild(sp);
+    }
+
+
+}
 
 
 function fsumm() {
-    summ=0;
-    for (i=0; i<basket.length; i++) {
+    summ = 0;
+    for (i = 0; i < basket.length; i++) {
         /*console.log(i,summ);
-        console.log(parseInt(basket[i][1]), parseInt(basket[i][2]) );*/
+         console.log(parseInt(basket[i][1]), parseInt(basket[i][2]) );*/
         summ = parseInt(summ) + ((parseInt(basket[i][1]) * parseInt(basket[i][2])));
 
     }
