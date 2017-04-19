@@ -11,6 +11,21 @@ body {
     float: right;
 }
 
+.cancel{
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 10px;
+    color: rgba(128, 128, 128, 0.33);
+    display: none;
+}
+
+.canceltext:hover{
+     color: black;
+    cursor: pointer;
+}
+
+
 .basket {
   width: 440px;
   min-height: 25px;
