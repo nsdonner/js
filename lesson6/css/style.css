@@ -27,7 +27,7 @@ body {
 
 
 .basket {
-  width: 440px;
+  /*width: 440px;*/
   min-height: 25px;
   border-radius: 7px;
   background-color: #fff51f;
@@ -904,6 +904,9 @@ ul.vertmenu li a {
   z-index: 0;
   /* Set z-index to 0 as it will be on a layer below the contact form */
 }
+
+
+
 .content h1 {
   font-family: Raleway;
   color: #333333;
@@ -920,8 +923,8 @@ ul.vertmenu li a {
   margin-top: 24px;
 }
 .sfoto ul li img {
-  width: 70px;
-  height: 110px;
+  width: 92px;
+  height: 92px;
   margin-top: 20px;
   margin-bottom: 40px;
 }
@@ -976,6 +979,33 @@ ul.vertmenu li a {
   /* width and height properties ommitted due to transform */
   text-align: center;
 }
+
+.pleft{
+    float: left;
+    height: 370px;
+    font-size: 50px;
+    color: rgba(128, 128, 128, 0.24);
+    line-height: 370px;
+}
+.pright{
+    float: right;
+    height: 370px;
+    font-size: 50px;
+    color: rgba(128, 128, 128, 0.24);
+    line-height: 370px;
+}
+
+.pright:hover {
+    color: black;
+    cursor: pointer;
+}
+
+.pleft:hover {
+    color: black;
+    cursor: pointer;
+}
+
+
 .photo {
   border-style: solid;
   border-width: 2px;
@@ -983,6 +1013,8 @@ ul.vertmenu li a {
   background-color: #eaeaea;
   width: 370px;
   height: 370px;
+  background-image: url("../img/egg1.jpeg");
+    background-size: 370px;
   margin-right: 46px;
   float: left;
 }
