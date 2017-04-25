@@ -4,10 +4,7 @@
 
 /*function go() {*/
 
-document.getElementsByClassName('pleft')[0].onclick = function (event) {
-    document.getElementsByClassName('photo')[0].style.backgroundImage.url = '../img/egg2.jpeg';
-    alert('!!!');
-};
+
 
 
 /*
@@ -16,34 +13,13 @@ document.getElementsByClassName('pleft')[0].onclick = function (event) {
  }*/
 
 
-var abc = ['img/egg4.jpeg', 'img/egg3.jpeg', 'img/egg2.jpeg', 'img/egg1.jpeg'];
-function shiftArray(arr, cnt) {
-    return arr.slice(cnt).concat(arr.slice(0, cnt));
-}
+
 
 
 document.addEventListener('DOMContentLoaded', function () {
 
 
-    document.getElementsByClassName('pleft')[0].onclick = function (event) {
-        var sfotoList = document.getElementsByClassName('sfotolist')[0];
-        for (i = 0; i < sfotoList.getElementsByTagName('img').length; i++) {
-            sfotoList.getElementsByTagName('img')[i].src = abc[i];
-            document.getElementsByClassName('photo')[0].style.backgroundImage = 'url(' + abc[i + 1] + ')';
-        }
-        abc = shiftArray(abc, -1);
 
-    };
-
-    document.getElementsByClassName('pright')[0].onclick = function (event) {
-        var sfotoList = document.getElementsByClassName('sfotolist')[0];
-        for (i = 0; i < sfotoList.getElementsByTagName('img').length; i++) {
-            sfotoList.getElementsByTagName('img')[i].src = abc[i];
-            document.getElementsByClassName('photo')[0].style.backgroundImage = 'url(' + abc[i + 1] + ')';
-        }
-        abc = shiftArray(abc, 1);
-        
-    };
 
 
     var arr = document.body.getElementsByTagName('main');
