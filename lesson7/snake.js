@@ -71,24 +71,42 @@ function move() {
     //Определение новой точки
     switch (direction) {
         case 'x-':
-            newUnit = document.getElementsByClassName(
-                'cell-' + (coordY) + '-' + (coordX - 1)
-            )[0];
+            newUnit = document.getElementsByClassName('cell-' + (coordY) + '-' + (coordX - 1))[0];
+                if (newUnit == undefined){
+                    newUnit = document.getElementsByClassName('cell-' + (coordY) + '-' + (FIELD_SIZE_X-1))[0];
+                }
             break;
         case 'x+':
             newUnit = document.getElementsByClassName(
                 'cell-' + (coordY) + '-' + (coordX + 1)
             )[0];
+            if (newUnit == undefined){
+                newUnit = document.getElementsByClassName(
+                    'cell-' + (coordY) + '-' + ('0')
+                )[0];
+            }
             break;
         case 'y+':
             newUnit = document.getElementsByClassName(
                 'cell-' + (coordY - 1) + '-' + (coordX)
             )[0];
+            if (newUnit == undefined){
+                newUnit = document.getElementsByClassName(
+                    'cell-' + (FIELD_SIZE_Y-1) + '-' + (coordX)
+                )[0];
+            }
+
             break;
         case 'y-':
             newUnit = document.getElementsByClassName(
                 'cell-' + (coordY + 1) + '-' + (coordX)
             )[0];
+            if (newUnit == undefined){
+                newUnit = document.getElementsByClassName(
+                    'cell-' + ('0') + '-' + (coordX)
+                )[0];
+            }
+
             break;
     }
     //console.log(newUnit);
