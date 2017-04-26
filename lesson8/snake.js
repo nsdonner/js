@@ -1,4 +1,5 @@
-// поправлен баг с прекращением игры по центру, закрашиваются блоки с едой, реализованы все пункты задания.
+// заменил переменную score на  замкнутый счетчик строка 163, вызов 190
+
 
 
 
@@ -12,7 +13,7 @@ var direction = 'y+'; //Направление движения змейки
 var gameIsRunning = false; //Запущена ли игра
 var snakeTimer; //Таймер
 var blockTimer;
-var score = 0; //Результат
+
 
 function init() {
     //Генерация поля
@@ -158,6 +159,25 @@ function isBlockUnit(unit) {
 
 
 //Еда
+
+function makeCounter() {
+    var count = 0;
+    function counter() {
+        count = count + 1;
+        return count;
+    }
+    return counter;
+}
+var doCount = makeCounter();
+
+
+
+
+
+
+
+
+
 function haveFood(unit) {
     var check = false;
 
@@ -167,8 +187,7 @@ function haveFood(unit) {
     if (unitClasses.includes('food-unit')) {
         check = true;
         createFood();
-        score++;
-        document.getElementsByClassName('score')[0].innerHTML = 'Счёт: ' + score;
+        document.getElementsByClassName('score')[0].innerHTML = 'Счёт: ' + doCount();
     }
 
     return check;
@@ -266,7 +285,7 @@ function finishTheGame() {
     gameIsRunning = false;
     clearInterval(snakeTimer);
     clearInterval(blockTimer);
-    alert('Игра окончена! Ваш результат: ' + score.toString());
+    alert('Игра окончена! Ваш результат: ' + (doCount()-1));
 }
 
 //Генерация игрового поля
